@@ -24,7 +24,7 @@ if (uri === undefined) {
  * @param name Don't specify a name to get the Rastro database.
  * @returns
  */
-export async function GetDatabase(name = "example") {
+export async function GetDatabase(name = "examen3") {
     return (await clientPromise).db(name);
 }
 
