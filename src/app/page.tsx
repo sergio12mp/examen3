@@ -1,8 +1,10 @@
 import LazyMap, { LazyMarker } from '@/components/Map.lazy';
 import axios from 'axios';
 import React from 'react';
+import Image from "next/image"; // Import the Image component from the correct package
 
-export default async function  HomePage() {
+
+export default async function HomePage() {
   const styles = {
     homePage: {
       maxWidth: '800px',
@@ -79,7 +81,9 @@ export default async function  HomePage() {
               <p>{item.lugar}</p>
               <p>{item.organizador}</p>
               <p>{item.timestamp.toString()}</p>
-              <img src={item.imagen} style={{ width: '200px', height: '200px' }}></img>
+              {/* eslint-disable-next-line jsx-a11y/alt-text, react/jsx-no-undef */}
+
+              <Image src={item.imagen} alt="" width={200} height={200} />
             </li>
           ))}
         </ul>

@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-async-client-component */
+
 import React from "react";
 import LazyMap, { LazyMarker } from "@/components/Map.lazy";
 import { notFound } from "next/navigation";
@@ -6,7 +8,7 @@ import { GetDirections } from "@/lib/database";
 import { GET } from "../api/directions/route";
 import axios from "axios";
 import { data } from "autoprefixer";
-
+import Image from "next/image"; // Import the Image component from the correct package
 
 
 export default async function Inicio() {
@@ -73,7 +75,9 @@ export default async function Inicio() {
                         <p>{item.lugar}</p>
                         <p>{item.organizador}</p>
                         <p>{item.timestamp.toString()}</p>
-                        <img src={item.imagen} style={{ width: '200px', height: '200px' }}></img>
+
+                        {/* eslint-disable-next-line jsx-a11y/alt-text, react/jsx-no-undef */}
+                        <Image src={item.imagen} alt="" width={200} height={200} />
                     </li>
                 ))}
             </ul>
