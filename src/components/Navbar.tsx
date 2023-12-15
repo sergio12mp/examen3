@@ -37,13 +37,12 @@ function Navbar() {
   return (
     <nav className="bg-gray-500 flex items-center py-3 px-4 justify-between text-white">
       <Link href="/">
-        <h1 className="mr-auto cursor-pointer">appName</h1>
+        <h1 className="mr-auto cursor-pointer">Eventual</h1>
       </Link>
 
       {session?.user ? (
         <div className="flex gap-x-2 items-center">
           <Link href="/inicio">Inicio</Link>
-          <Link href="/logRegistrations">Registrations</Link>
           <p className="mr-2">
             {session.user.name} {session.user.email}
           </p>

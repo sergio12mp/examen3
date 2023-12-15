@@ -9,40 +9,48 @@ interface RouteParams {
 }
 
 const KEYS: string[] = [
-    "Localidad"
+    "nombre",
+    "timestamp",
+    "lugar",
+    "lat",
+    "lon",
+    "organizador",
+    "imagen",
 ];
 
-export async function GET(_: NextRequest, {params}: Params<RouteParams>){
+
+
+export async function GET(_: NextRequest, { params }: Params<RouteParams>) {
     const id = params.id;
 
-    if(!ObjectId.isValid(id)) {
-        return NextResponse.json({}, {status: 406});
+    if (!ObjectId.isValid(id)) {
+        return NextResponse.json({}, { status: 406 });
     }
 
     const direcciones = await GetDirections();
 
     const res = await direcciones.findOne(GetIdFilter(id));
 
-    if(!res) {
-        return NextResponse.json({}, {status: 404});
+    if (!res) {
+        return NextResponse.json({}, { status: 404 });
     }
 
-    return NextResponse.json(res, {status: 200});
+    return NextResponse.json(res, { status: 200 });
 }
 
-export async function PUT(request: NextRequest, {params}: Params<RouteParams>) {
+export async function PUT(request: NextRequest, { params }: Params<RouteParams>) {
     const id = params.id;
 
-    if(!ObjectId.isValid(id)) {
-        return NextResponse.json({}, {status: 406});
+    if (!ObjectId.isValid(id)) {
+        return NextResponse.json({}, { status: 406 });
     }
 
     const json = await request.json();
 
     const direcciones = await GetDirections();
 
-    if(!HasCorrectKeys(json, KEYS)) {
-        return NextResponse.json({}, {status: 406});
+    if (!HasCorrectKeys(json, KEYS)) {
+        return NextResponse.json({}, { status: 406 });
     }
 
     const res = await direcciones.updateOne(
@@ -52,25 +60,25 @@ export async function PUT(request: NextRequest, {params}: Params<RouteParams>) {
         }
     );
 
-    if(res.matchedCount === 0) {
-        return NextResponse.json({}, {status: 404});
+    if (res.matchedCount === 0) {
+        return NextResponse.json({}, { status: 404 });
     }
 
-    return NextResponse.json({}, {status: 200});
+    return NextResponse.json({}, { status: 200 });
 }
 
-export async function DELETE(_: NextRequest, {params}: Params<RouteParams>){
+export async function DELETE(_: NextRequest, { params }: Params<RouteParams>) {
     const id = params.id;
 
-    if(!ObjectId.isValid(id)) {
-        return NextResponse.json({}, {status: 406});
+    if (!ObjectId.isValid(id)) {
+        return NextResponse.json({}, { status: 406 });
     }
 
     const direcciones = await GetDirections();
 
     const res = await direcciones.deleteOne(GetIdFilter(id));
 
-    const status = res.acknowledged ? 200: 500;
+    const status = res.acknowledged ? 200 : 500;
 
     return NextResponse.json(
         {},

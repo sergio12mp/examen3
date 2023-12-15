@@ -35,6 +35,7 @@ export function ImageForm() {
             if (response.ok) {
                 const data = await response.json();
                 setUploadMessage(`Image uploaded successfully. Url: ${data.imageUrl}`);
+                
             } else {
                 const errorData = await response.json();
                 setUploadMessage(`Error uploading image: ${errorData.msg}`);
@@ -47,7 +48,7 @@ export function ImageForm() {
     return <>
         <form onSubmit={handleSubmit}>
             <input type="file" onChange={handleFileChange} />
-            <button type="submit">Upload Image</button>
+            <button type="submit"  style={{backgroundColor: 'green', color: 'white'}}>Upload Image</button>
         </form>
         {uploadMessage && <p>{uploadMessage}</p>}
     </>;
