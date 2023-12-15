@@ -14,9 +14,16 @@ import Image from "next/image"; // Import the Image component from the correct p
 export default async function Inicio() {
     const urlBase = process.env.NEXTAUTH_URL;
 
-    const directionResponse = await fetch(`${urlBase}/api/directions`);
+    let data;
     const database = await axios.get('http://localhost:3000/api/directions');
-    const datos = database.data;
+    if(database.status !== 200){
+        const directionResponse = await fetch(`${urlBase}/api/directions`);
+        data = directionResponse.json();
+    }else{
+        data = database.data;
+    }
+    const datos = data;
+    
     //console.log(datos[2]);
 
 
