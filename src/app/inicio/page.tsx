@@ -7,17 +7,9 @@ import { GET } from "../api/directions/route";
 import axios from "axios";
 import { data } from "autoprefixer";
 
-interface Props {
-    nombre: string;
-    timestamp: Date;
-    lugar: string;
-    lat: number;
-    lon: number;
-    organizador: string;
-    imagen: string;
-}
 
-export default async function Inicio(props: Props) {
+
+export default async function Inicio() {
     const urlBase = process.env.NEXTAUTH_URL;
 
     const directionResponse = await fetch(`${urlBase}/api/directions`);
