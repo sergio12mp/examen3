@@ -37,15 +37,15 @@ function Navbar() {
   return (
     <nav className="bg-gray-500 flex items-center py-3 px-4 justify-between text-white">
       <Link href="/">
-        <h1 className="mr-auto cursor-pointer">Eventual</h1>
+        <h1 className="mr-auto cursor-pointer">aPachasWeb</h1>
       </Link>
 
       {session?.user ? (
         <div className="flex gap-x-2 items-center">
           <Link href="/inicio">Inicio</Link>
-          <Link href="/newEvent">Evento Nuevo</Link>
+          <Link href="/nuevoGasto">NuevoGasto</Link>
           <p className="mr-2">
-            {session.user.name} {session.user.email}
+            {session.user.name} 
           </p>
           <button
             onClick={async () => {

@@ -5,8 +5,9 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export function NewEventForm() {
+export function NuevoGastoFormulario() {
     const [name, setName] = useState("");
+    const [value, setValue] = useState("");
     const [postalCode, setPostalCode] = useState("");
     const [date, SetDate] = useState(new Date());
     const [file, setFile] = useState<File | null>(null);
@@ -30,6 +31,11 @@ export function NewEventForm() {
         if(date) {
             SetDate(date);
         }
+    }
+    const OnValueChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const newValue = event.target.value;
+
+        setValue(newValue);
     }
 
     const OnFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -76,12 +82,12 @@ export function NewEventForm() {
         const osmAddress = await response.json();
 
         const eventData = {
-            nombre: name,
+            concepto: name,
             timestamp: date,
             postalCode: postalCode,
             lat: osmAddress.lat,
             lon: osmAddress.lon,
-            organizador: session.data?.user?.email,
+            email: session.data?.user?.email,
             imagen: imageUrl
         }
 
@@ -95,13 +101,22 @@ export function NewEventForm() {
 
     return <>
         <form onSubmit={HandleSubmit}>
-            <label htmlFor="Name">Nombre del evento:</label>
-            <input style={{backgroundColor:"lightgray", marginBottom:"1%"}} name="Name" type="text" onChange={OnNameChange}></input>
-
+            <label htmlFor="Name">Concepto del gasto:</label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} name="Name" type="text" onChange={OnNameChange}></input>
             <br></br>
 
-            <label htmlFor="postalCode">Código postal: </label>
-            <input style={{backgroundColor:"lightgray", marginBottom:"1%"}} onChange={OnPostalCodeChange} type="text" name="postalCode"></input>
+            <label htmlFor="value">Cantidad: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnValueChange} type="text" name="postalCode"></input>
+
+                        <br></br>
+
+            <label htmlFor="lat">Latitud: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnPostalCodeChange} type="text" name="postalCode"></input>
+            
+            <br></br>
+
+            <label htmlFor="lon">Longitud: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnPostalCodeChange} type="text" name="postalCode"></input>
 
             <br></br>
 
@@ -119,7 +134,7 @@ export function NewEventForm() {
             <br></br>
 
             <input style={{marginTop:"1%"}} type="file" onChange={OnFileChange} />
-            <button className="bg-sky-400 px-3 py-2 rounded" type="submit">Upload Image</button>
+            <button className="bg-sky-400 px-3 py-2 rounded" type="submit">Subir imagen</button>
 
             <br></br>
 
@@ -127,7 +142,7 @@ export function NewEventForm() {
 
             <br></br>
 
-            <button className="bg-sky-400 px-3 py-2 rounded" type="submit">Crear Evento</button>
+            <button className="bg-sky-400 px-3 py-2 rounded" type="submit">Crear gasto</button>
         </form>
     </>
 }

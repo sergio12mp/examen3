@@ -9,12 +9,12 @@ interface RouteParams {
 }
 
 const KEYS: string[] = [
-    "nombre",
+    "concepto",
     "timestamp",
-    "lugar",
+    "cantidad",
     "lat",
     "lon",
-    "organizador",
+    "email",
     "imagen",
 ];
 

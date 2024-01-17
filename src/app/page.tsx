@@ -4,7 +4,7 @@ import React from 'react';
 import Image from "next/image"; // Import the Image component from the correct package
 
 
-export default async function  HomePage() {
+export default async function HomePage() {
   const styles = {
     homePage: {
       maxWidth: '800px',
@@ -36,17 +36,19 @@ export default async function  HomePage() {
   return (
     <><div style={styles.homePage}>
       <section style={styles.welcomeSection}>
-        <h1 style={styles.title}>Bienvenidos a Eventual</h1>
+        <h1 style={styles.title}>Bienvenidos a aPachasWeb</h1>
         <p>
-          Eventual es tu página de eventos de confianza.
+          aPachasWeb es tu página de para dividir cuentas de confianza.
         </p>
       </section>
 
       <section style={styles.featuredContent}>
-        <h2 style={styles.title}>Eventos destacados</h2>
-        <p>
-          Descubre nuestras últimos eventos y características destacadas.
-        </p>
+        <h2 style={styles.title}>Funcionalidades</h2>
+        <ul>
+          <li>En la sección de Inicio puede ver los distintos gastos que habeis hecho tu y tus amigos.</li>
+          <li>En la seccion de NuevoGasto puede añadir un nuevo gasto para dividirlo entre todo su grupo de amigos.</li>
+          <li>Con Logout puede cerrar su sesion.</li>
+        </ul>
 
       </section>
     </div></>

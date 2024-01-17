@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-async-client-component */
 
-import React from "react";
+import React, { useEffect } from "react";
 import LazyMap, { LazyMarker } from "@/components/Map.lazy";
 import { notFound } from "next/navigation";
 import { ImageForm } from "@/components/ImageForm";
@@ -9,6 +9,8 @@ import { GET } from "../api/directions/route";
 import axios from "axios";
 import { data } from "autoprefixer";
 import Image from "next/image"; // Import the Image component from the correct package
+import { signIn, useSession, signOut } from "next-auth/react";
+
 
 
 export default async function Inicio() {
@@ -17,9 +19,8 @@ export default async function Inicio() {
     const directionResponse = await fetch(`${urlBase}/api/directions`);
     const database = await axios.get(`${process.env.NEXTAUTH_URL}/api/directions`);
     const datos = database.data;
-    
-    //console.log(datos[2]);
 
+    //console.log(datos[2]);
 
 
     // if (directionResponse.status !== 200) {
@@ -34,54 +35,77 @@ export default async function Inicio() {
     // const map = await mapResponse.json();
 
     // const direcciones = await Get("directions");
-
+    /* <div style={{ height: "300px", width: "200px" }}>
+     <LazyMap center={[datos[0].lat, datos[0].lon]} zoom={15}>
+         {datos.map((item: {
+             concepto: string;
+             timestamp: Date;
+             cantidad: string;
+             lat: number;
+             lon: number;
+             email: string;
+             imagen: string;
+         }, index: number) => (
+             <LazyMarker key={index} position={[item.lat, item.lon]}></LazyMarker>
+         ))}
+     </LazyMap>
+ </div>*/
 
     const longitud = Number(45.4215);
     const latitud = Number(-75.6994);
 
     return (
         <div>
-            <h1>InicioPage</h1>
             <ImageForm></ImageForm>
 
-            <p>Aqui tienes la dirección:</p>
-
-            <div style={{ height: "500px" }}>
-                <LazyMap center={[datos[0].lat, datos[0].lon]} zoom={15}>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {datos.map((item: {
-                        nombre: string;
+                        concepto: string;
                         timestamp: Date;
-                        lugar: string;
+                        cantidad: number;
                         lat: number;
                         lon: number;
-                        organizador: string;
+                        email: string;
                         imagen: string;
                     }, index: number) => (
-                        <LazyMarker key={index} position={[item.lat, item.lon]}></LazyMarker>
-                    ))}
-                </LazyMap>
-            </div>
-            <ul>
-                {datos.map((item: {
-                    nombre: string;
-                    timestamp: Date;
-                    lugar: string;
-                    lat: number;
-                    lon: number;
-                    organizador: string;
-                    imagen: string;
-                }, index: number) => (
-                    <li key={index}>
-                        <h1>{item.nombre}</h1>
-                        <p>{item.lugar}</p>
-                        <p>{item.organizador}</p>
-                        <p>{item.timestamp.toString()}</p>
+                        <li key={index} style={{ margin: '20px 0', textAlign: 'center', border: '1px solid #ccc', borderRadius: '10px', padding: '20px', width: '80%' }}>
+                            <h1 style={{ margin: '10px 0' }}>{item.concepto}</h1>
+                            <p style={{ margin: '10px 0' }}>{item.cantidad}</p>
+                            <p style={{ margin: '10px 0' }}>{item.email}</p>
+                            <p style={{ margin: '10px 0' }}>{item.timestamp.toString()}</p>
 
-                        {/* eslint-disable-next-line jsx-a11y/alt-text, react/jsx-no-undef */}
-                        <Image src={item.imagen} alt="" width={200} height={200} />
-                    </li>
-                ))}
-            </ul>
+                            {/* eslint-disable-next-line jsx-a11y/alt-text, react/jsx-no-undef */}
+                            <Image src={item.imagen} alt="" width={200} height={200} />
+                            <br></br>
+                            <div style={{ height: "300px", width: "200px" }}>
+                                <LazyMap center={[item.lat, item.lon]} zoom={15}>
+                                    {datos.map((item: {
+                                        concepto: string;
+                                        timestamp: Date;
+                                        cantidad: string;
+                                        lat: number;
+                                        lon: number;
+                                        email: string;
+                                        imagen: string;
+                                    }, index: number) => (
+                                        <LazyMarker key={index} position={[item.lat, item.lon]}></LazyMarker>
+                                    ))}
+                                </LazyMap>
+
+
+
+                            </div>
+
+
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 }
+function registerLogin(userData: { caducidad: string; email: string | null | undefined; }) {
+    throw new Error("Function not implemented.");
+}
+
