@@ -4,7 +4,7 @@ import React from 'react';
 import Image from "next/image"; // Import the Image component from the correct package
 
 
-export default async function HomePage() {
+export default async function  HomePage() {
   const styles = {
     homePage: {
       maxWidth: '800px',
@@ -49,45 +49,7 @@ export default async function HomePage() {
         </p>
 
       </section>
-    </div><div>
-
-        <div style={{ height: "500px" }}>
-          <LazyMap center={[datos[0].lat, datos[0].lon]} zoom={15}>
-            {datos.map((item: {
-              nombre: string;
-              timestamp: Date;
-              lugar: string;
-              lat: number;
-              lon: number;
-              organizador: string;
-              imagen: string;
-            }, index: number) => (
-              <LazyMarker key={index} position={[item.lat, item.lon]}></LazyMarker>
-            ))}
-          </LazyMap>
-        </div>
-        <ul>
-          {datos.map((item: {
-            nombre: string;
-            timestamp: Date;
-            lugar: string;
-            lat: number;
-            lon: number;
-            organizador: string;
-            imagen: string;
-          }, index: number) => (
-            <li key={index}>
-              <h1>{item.nombre}</h1>
-              <p>{item.lugar}</p>
-              <p>{item.organizador}</p>
-              <p>{item.timestamp.toString()}</p>
-              {/* eslint-disable-next-line jsx-a11y/alt-text, react/jsx-no-undef */}
-
-              <Image src={item.imagen} alt="" width={200} height={200} />
-            </li>
-          ))}
-        </ul>
-      </div></>
+    </div></>
   );
 }
 
