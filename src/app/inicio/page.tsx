@@ -15,8 +15,9 @@ export default async function Inicio() {
     const urlBase = process.env.NEXTAUTH_URL;
 
     const directionResponse = await fetch(`${urlBase}/api/directions`);
-    const database = await axios.get('http://localhost:3000/api/directions');
+    const database = await axios.get(`${process.env.NEXTAUTH_URL}/api/directions`);
     const datos = database.data;
+    
     //console.log(datos[2]);
 
 
