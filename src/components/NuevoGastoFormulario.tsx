@@ -7,9 +7,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export function NuevoGastoFormulario() {
     const [name, setName] = useState("");
-    const [value, setValue] = useState("");
-    const [postalCode, setPostalCode] = useState("");
     const [date, SetDate] = useState(new Date());
+    const [value, setValue] = useState("");
+    const [lat, setLat] = useState("");
+    const [lon, setLon] = useState("");
+    //const [postalCode, setPostalCode] = useState("");
+    
     const [file, setFile] = useState<File | null>(null);
     const [uploadMessage, setUploadMessage] = useState<string | null>(null);
 
@@ -21,23 +24,33 @@ export function NuevoGastoFormulario() {
         setName(newName);
     }
 
-    const OnPostalCodeChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const newPostalCode = event.target.value;
-
-        setPostalCode(newPostalCode);
-    }
-
     const OnDateChange = (date: Date | null) => {
         if(date) {
             SetDate(date);
         }
     }
+    
     const OnValueChange = (event: ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
 
         setValue(newValue);
     }
 
+    const OnLatChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const newLat = event.target.value;
+
+        setLat(newLat);
+    }
+
+    const OnLonChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const newLon = event.target.value;
+
+        setLon(newLon);
+    }
+
+
+   
+   
     const OnFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files && event.target.files[0];
 
@@ -47,6 +60,7 @@ export function NuevoGastoFormulario() {
     };
 
     const HandleSubmit = async (event: FormEvent) => {
+        console.log("HandleSubmit");
         event.preventDefault();
 
         if (!file) {
@@ -78,24 +92,23 @@ export function NuevoGastoFormulario() {
             return;
         }
 
-        const response = await fetch(`/api/map/fromPostalCode/${postalCode}`);
-        const osmAddress = await response.json();
+        //const response = await fetch(`/api/map/fromPostalCode/${postalCode}`);
+        //const osmAddress = await response.json();
 
         const eventData = {
             concepto: name,
             timestamp: date,
-            postalCode: postalCode,
-            lat: osmAddress.lat,
-            lon: osmAddress.lon,
+            lat: lat,
+            lon: lon,
             email: session.data?.user?.email,
             imagen: imageUrl
         }
 
-        const postResponse = await fetch(`/api/events`, { method: "POST", body: JSON.stringify(eventData)});
+        const postResponse = await fetch(`/api/directions`, { method: "POST", body: JSON.stringify(eventData)});
 
         if(postResponse.ok) {
             const responseBody = await postResponse.json();
-            window.location.href = `event/${responseBody.id}`
+            window.location.href = `inicio`
         }
     }
 
@@ -103,21 +116,7 @@ export function NuevoGastoFormulario() {
         <form onSubmit={HandleSubmit}>
             <label htmlFor="Name">Concepto del gasto:</label>
             <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} name="Name" type="text" onChange={OnNameChange}></input>
-            <br></br>
-
-            <label htmlFor="value">Cantidad: </label>
-            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnValueChange} type="text" name="postalCode"></input>
-
-                        <br></br>
-
-            <label htmlFor="lat">Latitud: </label>
-            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnPostalCodeChange} type="text" name="postalCode"></input>
             
-            <br></br>
-
-            <label htmlFor="lon">Longitud: </label>
-            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnPostalCodeChange} type="text" name="postalCode"></input>
-
             <br></br>
 
             <label htmlFor="date">Fecha: </label>
@@ -130,6 +129,24 @@ export function NuevoGastoFormulario() {
                 timeFormat="HH:mm"
                 dateFormat="yyyy-MM-dd h:mm aa"
             />
+            
+            <br></br>
+            
+            <label htmlFor="value">Cantidad: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnValueChange} type="text" name="value"></input>
+
+            <br></br>
+
+            <label htmlFor="lat">Latitud: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnLatChange} type="text" name="lat"></input>
+            
+            <br></br>
+
+            <label htmlFor="lon">Longitud: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnLonChange} type="text" name="lon"></input>
+
+            <br></br>
+
             
             <br></br>
 

@@ -56,7 +56,6 @@ export default async function Inicio() {
 
     return (
         <div>
-            <ImageForm></ImageForm>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
