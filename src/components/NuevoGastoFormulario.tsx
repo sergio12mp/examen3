@@ -8,7 +8,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export function NuevoGastoFormulario() {
     const [name, setName] = useState("");
     const [date, SetDate] = useState(new Date());
-    const [value, setValue] = useState("");
+    const [cantidad, setCantidad] = useState("");
     const [lat, setLat] = useState("");
     const [lon, setLon] = useState("");
     //const [postalCode, setPostalCode] = useState("");
@@ -31,9 +31,9 @@ export function NuevoGastoFormulario() {
     }
     
     const OnValueChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const newValue = event.target.value;
+        const newCantidad = event.target.value;
 
-        setValue(newValue);
+        setCantidad(newCantidad);
     }
 
     const OnLatChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +98,7 @@ export function NuevoGastoFormulario() {
         const eventData = {
             concepto: name,
             timestamp: date,
+            cantidad: cantidad,
             lat: lat,
             lon: lon,
             email: session.data?.user?.email,
@@ -132,8 +133,8 @@ export function NuevoGastoFormulario() {
             
             <br></br>
             
-            <label htmlFor="value">Cantidad: </label>
-            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnValueChange} type="text" name="value"></input>
+            <label htmlFor="cantidad">Cantidad: </label>
+            <input style={{backgroundColor:"BlanchedAlmond", marginBottom:"1%"}} onChange={OnValueChange} type="text" name="cantidad"></input>
 
             <br></br>
 

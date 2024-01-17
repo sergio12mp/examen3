@@ -95,8 +95,11 @@ export default async function Inicio() {
 
 
                             </div>
+                            {/* Si usuario.session.email != item.email -> se muestra el boton de pagar y al pulsar lo añade a los pagados*/}
+                            <button>Pagar gasto</button> <br></br>
+                            {/* Si usuario.session.email = item.email -> se muestra eliminar gasto y lo borra  */}
 
-
+                            <button>Eliminar gasto</button>
                         </li>
                     ))}
                 </ul>
