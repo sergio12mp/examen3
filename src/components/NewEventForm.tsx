@@ -76,13 +76,13 @@ export function NewEventForm() {
         const osmAddress = await response.json();
 
         const eventData = {
-            name: name,
-            date: date,
+            nombre: name,
+            timestamp: date,
             postalCode: postalCode,
             lat: osmAddress.lat,
             lon: osmAddress.lon,
-            organizer: session.data?.user?.email,
-            image: imageUrl
+            organizador: session.data?.user?.email,
+            imagen: imageUrl
         }
 
         const postResponse = await fetch(`/api/events`, { method: "POST", body: JSON.stringify(eventData)});
